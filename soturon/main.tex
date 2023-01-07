@@ -124,10 +124,10 @@
 Scratchとは，指示の書かれたブロックを組み合わせるようにソースコードを記述することができるブロックタイプのビジュアルプログラミング言語である．特徴として，直感的な操作性や視覚的なわかりやすさが挙げられる．Scratchにおけるステージやスプライトの概念や動作，図\ref{fig:scratch}に示したような実行環境をベースに本言語の言語仕様を定めた．
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=100mm]{images/scratch.pdf}
-\caption{Scrachの実行環境}
-\label{fig:scratch}
+  \centering
+  \includegraphics[width=100mm]{images/scratch.pdf}
+  \caption{Scrachの実行環境}
+  \label{fig:scratch}
 \end{figure}
 
 \subsubsection{JavaScript}
@@ -282,13 +282,66 @@ start~10;
   \end{tabular}
 \end{table}
 
+\begin{lstlisting}[caption=論理演算子のプログラム例, label=code10]
+true and true;
+true or false;
+\end{lstlisting}
+
 \subsection{変数}
+変数を宣言する場合，必ず初期化が必要となる．代入演算子を用いて，データを変数に代入することで，変数を宣言することができる．プログラム\ref{code11}に変数のプログラム例を示す．
+
+\begin{lstlisting}[caption=変数のプログラム例, label=code11]
+100 -> num;
+() => {} -> func;
+{10,20} |> func -> ans; 
+\end{lstlisting}
+
 \subsection{関数}
-\subsection{繰り返し処理}
-\subsection{条件分岐}
+関数とは，一連の処理をまとめたものを表す．関数の宣言には，ラムダ式を用いる．括弧「()」内に引数を，中括弧「\{\}」内に処理を記述する．また，returnで戻り値を指定する．関数は変数に代入することもできる．プログラム\ref{code12}に関数のプログラム例を示す．
+
+\begin{lstlisting}[caption=関数のプログラム例, label=code12]
+(a,b) => { return a + b } -> add;
+{ 10, 20 } |> add;
+\end{lstlisting}
+
+\subsection{メソッド呼び出し}
+メソッドとは，あるオブジェクトに対する手続きのことを指す．本言語では，Scratchにおけるスプライトやステージのメソッドを使用することで，スプライトの動作，見た目の変更などの処理を行う．プログラム\ref{code13}にメソッド呼び出しのプログラム例を示す．例では，Spliteクラスにあるnewメソッドにより，cat内に「ねこ」という名前のスプライトを生成している．また，walkメソッドを使用し，生成したスプライトを10歩進ませる処理を行なっている．
+
+\begin{lstlisting}[caption=メソッド呼び出しのプログラム例, label=code13]
+Splite.new name:"ねこ"-> cat;
+cat.walk 10; 
+\end{lstlisting}
 \clearpage
 
+\section{Scratchとの比較}
+Scratchのブロックは指示の種類に分類されており，「動き」，「見た目」，「音」，「イベント」，「制御」，「調べる」，「演算」等の種類がある．全ての機能を本言語内で取り扱うわけではないが，Scratchのようにステージとスプライトを利用したプログラミングで「音」は重要度が低い要素と判断したため，現時点では実装について考えていない．以下に，種類ごとにScratchのブロックと本言語の記述の比較したものを示す．
+\subsection{動き}
+\subsubsection{walkメソッド}
+図\ref{fig:walk}で示されたScratchにおける「〜歩動かす」ブロックは，スプライトの向いている方向への移動処理を行う．本言語では，walkメソッドにより同様の処理を行う．
+walkメソッドは，「スプライト名.walk」で向いている方向へ，指定した数値分の移動を行う．
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=15mm]{images/walk.pdf}
+  \caption{「〜歩動かす」ブロック}
+  \label{fig:walk}
+\end{figure}
+
+\begin{lstlisting}[caption=walkメソッドのプログラム例, label=code14]
+Splite.new name:"ねこ"-> cat;
+cat.walk 50; 
+\end{lstlisting}
+
+\subsubsection{}
+\clearpage
+
+\subsection{見た目}
+
+
+\subsection{イベント}
+\subsection{制御}
+\subsection{調べる}
+\subsection{演算}
 
 \section{結言}
 \clearpage
