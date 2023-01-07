@@ -2,27 +2,42 @@
 
 \documentclass[10pt,a4j]{ltjsarticle}
 \usepackage{url}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
 
 \begin{document}
+\lstset{
+  numbers = left,
+  frame = single
+}
 %表紙
 \begin{titlepage}
   \begin{center}  
     \vspace*{20truept}    
-    {\LARGE 2022年度 卒業論文}     
+    {\LARGE 2022年度 卒業論文}
+    
     \vspace*{75truept}    
     {\Huge Scratchからの移行を意識した}　%論文タイトル
+    
     \vspace{10truept}
     {\Huge プログラミング言語の開発}　%論文タイトル　長い場合 改行1
+    
     \vspace{10truept}
     {\Huge }　%論文タイトル　改行2
+    
     \vspace{85truept}
     {\LARGE 指導教員　須田 宇宙 准教授} 
+    
     \vspace{60truept}
     {\LARGE 千葉工業大学 情報ネットワーク学科}
+    
     \vspace{15truept}
     {\LARGE 須田研究室}
+    
     \vspace{70truept}
     {\LARGE 1932034　氏名 川原 史哉 }　% 氏名は消さない 学生番号 氏名 
+    
     \vspace{70truept}
   \end{center}
   \begin{flushright}
@@ -82,27 +97,195 @@
 
 \section{Chiba-langのコンセプト}
 \subsection{概要}
+本言語は，Scratchからテキストプログラミング言語への移行するときの仕様の違いを軽減するものであり，小学校でScratchを学習した中学生が次の段階で学ぶことを想定している．そのため，以下のような言語コンセプトを定めた．
+
+\begin{enumerate}
+   \item[(1)] Scratchと同様に，ステージ上でスプライトを動かすことができる．
+   \item[(2)] 中学で学ぶ範囲の英単語や日常で使われるような英単語を使用する．
+   \item[(3)] 上から下，左から右へと処理の流れがわかりやすい．
+   \item[(4)] C言語におけるinclude文のような不要要素を排除する．
+   \item[(5)] ブラウザ上での動作を前提とする．
+\end{enumerate}
+
+(1)は，Scratchとテキストプログラミング言語の違いであるスプライトの有無についての問題点を軽減している．
+
+(2)は，Scratchのブロックが日本語で表されているのに対して，テキスト言語の多くは英単語や記号で表現されるという差異を軽減している．本言語で使用されている英単語は中学生で習う英単語及び日常生活の中で使われるような英単語に限定することで抵抗感を軽減するという狙いがある．
+
+(3)は，Scratchにおける視覚的なわかりやすさを本言語でも再現しようと試みている．
+
+(4)における不要要素とは，C言語におけるinclude文のような動作のためには必要だが，プログラミングを学習するとき優先的に学ぶ必要がある事柄ではないものを指す．
+
+(5)は，テキストプログラミング言語のような複雑な環境構築を必要としないことを目的としている．
+
 \subsection{参考言語}
+以下に本言語を作成する上で参考にした言語を示す．
+
 \subsubsection{Scratch}
+Scratchとは，指示の書かれたブロックを組み合わせるようにソースコードを記述することができるブロックタイプのビジュアルプログラミング言語である．特徴として，直感的な操作性や視覚的なわかりやすさが挙げられる．Scratchにおけるステージやスプライトの概念や動作，図\ref{fig:scratch}に示したような実行環境をベースに本言語の言語仕様を定めた．
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=100mm]{images/scratch.pdf}
+\caption{Scrachの実行環境}
+\label{fig:scratch}
+\end{figure}
+
 \subsubsection{JavaScript}
+JavaScriptとは，Webサイトやシステム開発などで用いられるテキストプログラミング言語である．JavaScriptはとても汎用的なプログラミング言語で，HTMLやCSSと組み合わせて使用することでブラウザ上での動的な処理を実現したり，Node.jsなどのブラウザ側だけでなくサーバー側でも使用される．
+
+本言語では，イベント処理の実現のためにpromiseとthenの仕組みを参考にしている．
+
 \subsubsection{Ruby}
-\subsubsection{Smalltalk}
-\subsubsection{Elm}
-\subsubsection{Lisp}
-\subsubsection{Elixir}
-\subsection{先行研究}
+Rubyとは，日本で開発されたオブジェクト指向スクリプト言語である．
 \clearpage
 
 \section{言語仕様}
 \subsection{概要}
+前章において紹介したコンセプトや先行研究\cite{senkou1,senkou2}をもとに，言語仕様を作成した．
+簡単な英単語や処理の流れのわかりやすさを重視している．
 \subsection{データ型}
+本言語におけるデータ型の種類について示す．
+\subsubsection{数値型}
+数値型は，「5」や「1.5」などの数値で表される．
+数値型には二種類あり，整数型と浮動小数点数型の二種類がある．また，数値に対して「-」を先頭につけることで数値の正負を表すことができる．プログラム\ref{code01}に数値型のプログラム例を示す．
+
+\begin{lstlisting}[caption=数値型のプログラム例, label=code01]
+5 -> int;
+-5 -> minus;
+1.5 -> float;
+\end{lstlisting}
+
+\subsubsection{文字列型}
+文字列型は，ダブルクォート「"」やシングルクォート「'」で囲まれた文字，数字，記号で表される．プログラム\ref{code02}に文字列型のプログラム例を示す．
+
+\begin{lstlisting}[caption=文字列型のプログラム例, label=code02]
+"Hello, World!!" -> str1;
+'こんにちは!' -> str2;
+\end{lstlisting}
+
+\subsubsection{論理型}
+論理型は，真偽値である「true」および「false」で表される．
+
+\subsubsection{範囲型}
+範囲型は，「開始値~終端値」で表される．チルダ演算子「~」の左右の開始値と終端値には数値が入り，開始値から終端値までの範囲を生成する．
+繰り返し処理であるeachメソッドで使用される．
+
+\begin{lstlisting}[caption=範囲型のプログラム例, label=code03]
+{1~10}.each ()=>{}
+\end{lstlisting}
+
+\subsubsection{配列型}
+配列型は，角括弧「[]」の中身をカンマ「,」で区切ることで表される．プログラム\ref{code04}に配列型のプログラム例を示す．
+
+\begin{lstlisting}[caption=範囲型のプログラム例, label=code04]
+[1,2,3,4,5] -> arr;
+["a",0,"b"] -> arr;
+\end{lstlisting}
+
 \subsection{演算子}
+\subsubsection{代入演算子}
+代入演算子は，右矢印「->」で表される．右矢印の左側のデータを右側の変数に代入することができる．プログラム\ref{code05}に代入演算子のプログラム例を示す．
+
+\begin{lstlisting}[caption=代入演算子のプログラム例, label=code05]
+123 -> num;
+"abc" -> str;
+[1,2,3] -> arr;
+\end{lstlisting}
+
+\subsubsection{パイプライン演算子}
+パイプライン演算子は，記号「|>」で表される．記号の左側の値を右側の関数の引数として実行する．関数を連続で実行する場合，左から優先的に実行される．パイプライン演算子を使用することでシンプルに記述することができる．プログラム\ref{code06}にパイプライン演算子のプログラム例を示す．
+
+\begin{lstlisting}[caption=パイプライン演算子のプログラム例, label=code06]
+1 |> func;
+{a, b} |> func1 |> func2;
+\end{lstlisting}
+
+\subsubsection{チルダ演算子}
+チルダ演算子は，チルダ「~」で表される．記号の左側が開始値，右側が終端値の範囲型の値を生成する．プログラム\ref{code07}にチルダ演算子のプログラム例を示す．
+
+\begin{lstlisting}[caption=チルダ演算子のプログラム例, label=code07]
+1~10;
+0 -> start;
+start~10;
+\end{lstlisting}
+
+\subsubsection{算術演算子}
+算術演算子は，数値型の値を用いて算術演算を実行する．表\ref{tab:table01}に算術演算子の一覧を，プログラム\ref{code08}に算術演算子のプログラム例を示す．
+
+\begin{table}[H]
+ \caption{算術演算子一覧}
+ \label{tab:table01}
+ \centering
+  \begin{tabular}{cc}
+   \hline
+   演算子 & 名称 \\
+   \hline \hline
+   + & 加算演算子 \\
+   - & 減算演算子 \\
+   \ast & 乗算演算子 \\
+   / & 除算演算子 \\
+   \% & 余剰演算子 \\
+   \hline
+  \end{tabular}
+\end{table}
+
+\begin{lstlisting}[caption=算術演算子のプログラム例, label=code08]
+10 + 10;
+10 - 10;
+10 * 10; 
+10 / 10;
+10 % 10;
+\end{lstlisting}
+
+\subsubsection{比較演算子}
+比較演算子は，二つの値の比較を行い，結果として真偽値を返す．表\ref{tab:table02}に比較演算子の一覧を，プログラム\ref{code09}に比較演算子のプログラム例を示す．
+
+\begin{table}[H]
+ \caption{比較演算子一覧}
+ \label{tab:table02}
+ \centering
+  \begin{tabular}{cc}
+   \hline
+   演算子 & 名称 \\
+   \hline \hline
+   = & 等価演算子 \\
+   <= & 以下演算子 \\
+   >= & 以上演算子 \\
+   < & 小なり演算子 \\
+   > & 大なり演算子 \\
+   \hline
+  \end{tabular}
+\end{table}
+
+\begin{lstlisting}[caption=比較演算子のプログラム例, label=code09]
+10 = 10;
+10 <= 100;
+100 >= 10; 
+10 < 100;
+100 > 10;
+\end{lstlisting}
+
+\subsubsection{論理演算子}
+論理演算子は，真偽値に対して論理演算を行う．表\ref{tab:table03}に論理演算子の一覧を，プログラム\ref{code10}に論理演算子のプログラム例を示す．
+
+\begin{table}[H]
+ \caption{論理演算子一覧}
+ \label{tab:table03}
+ \centering
+  \begin{tabular}{cc}
+   \hline
+   演算子 & 名称 \\
+   \hline \hline
+   and & AND演算子 \\
+   or & OR演算子 \\
+   \hline
+  \end{tabular}
+\end{table}
+
 \subsection{変数}
 \subsection{関数}
 \subsection{繰り返し処理}
 \subsection{条件分岐}
-\subsection{配列}
-\subsection{Scratchとの比較}
 \clearpage
 
 
@@ -111,6 +294,8 @@
 \clearpage
 
 \section{謝辞}
+本論文の作成にあたり、多くの方々にご指導ご鞭撻を賜りました。
+須田浩准教授や須田研究室の仲間には，多大なる御指導及び御助言を頂きました．深く感謝申し上げます．
 \clearpage
 
 \begin{thebibliography}{99}
