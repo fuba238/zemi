@@ -311,13 +311,16 @@ true or false;
 Splite.new name:"ねこ"-> cat;
 cat.walk 10; 
 \end{lstlisting}
+
+\subsection{構文規則}
+
 \clearpage
 
 \section{Scratchとの比較}
 Scratchのブロックは指示の種類に分類されており，「動き」，「見た目」，「音」，「イベント」，「制御」，「調べる」，「演算」等の種類がある．全ての機能を本言語内で取り扱うわけではないが，Scratchのようにステージとスプライトを利用したプログラミングで「音」は重要度が低い要素と判断したため，現時点では実装について考えていない．以下に，種類ごとにScratchのブロックと本言語の記述の比較したものを示す．
 
 \subsection{動き}
-Scratchにおける「動き」に関連するブロックと本言語における類似処理との比較を以下に示す．
+Scratchにおける「動き」に関連するブロックと本言語における類似した処理との比較を以下に示す．
 \subsubsection{walkメソッド}
 図\ref{fig:walk}で示されたScratchにおける「〜歩動かす」ブロックは，スプライトの向いている方向への移動処理を行う．本言語では，walkメソッドにより同様の処理を行う．
 
@@ -382,8 +385,8 @@ turnメソッドは，「スプライト名.turn」で角度を変更するこ�
 
 \begin{figure}[H]
   \centering
-  \includegraphics[height=15mm]{images/turn_right.pdf} \\
-  \includegraphics[height=15mm]{images/turn_left.pdf} \\
+  \includegraphics[height=15mm]{images/turn_right.pdf} 
+  \includegraphics[height=15mm]{images/turn_left.pdf} 
   \includegraphics[height=15mm]{images/turn.pdf}
   \caption{「〜度回す」，「〜度に向ける」ブロック}
   \label{fig:turn}
@@ -423,7 +426,7 @@ xメソッドとyメソッドは，「スプライト名.x」と「スプライ�
 
 \begin{figure}[H]
   \centering
-  \includegraphics[height=15mm]{images/x.pdf} \\
+  \includegraphics[height=15mm]{images/x.pdf} 
   \includegraphics[height=15mm]{images/y.pdf} 
   \caption{「座標」ブロック}
   \label{fig:xy}
@@ -542,7 +545,7 @@ showメソッドは，「スプライト名.show」に真偽値を与えるこ�
 
 \begin{figure}[H]
   \centering
-  \includegraphics[height=15mm]{images/show.pdf} \\
+  \includegraphics[height=15mm]{images/show.pdf} 
   \includegraphics[height=15mm]{images/hide.pdf}
   \caption{「表示」「非表示」ブロック}
   \label{fig:show}
@@ -659,7 +662,8 @@ true.while {
 \subsubsection{ifメソッド}
 図\ref{fig:if}で示されたScratchにおける「もし〜ならば」ブロックは，指定した条件が真である場合のみ処理を行う．本言語では，ifメソッドで類似した処理を行う．
 
-ifメソッドは，「条件式.if 処理」のように，条件式の結果がtrueである場合，処理を行う．プログラム\ref{code31}にifメソッドのプログラム例を示す
+ifメソッドは，「条件式.if 処理」のように，条件式の結果がtrueである場合，処理を行う．プログラム\ref{code31}にifメソッドのプログラム例を示す．
+
 \begin{figure}[H]
   \centering
   \includegraphics[height=30mm]{images/if.pdf}
@@ -676,10 +680,91 @@ ifメソッドは，「条件式.if 処理」のように，条件式の結果�
 \end{lstlisting}
 
 \subsection{調べる}
+Scratchにおける「調べる」に関連するブロックと本言語における類似処理との比較を以下に示す．
+\subsubsection{touchメソッド}
+図\ref{fig:touch}で示されたScratchにおける「〜に触れた」ブロックは，スプライトがある要素に対して接触したかどうかの判定処理を行う．本言語では，touchメソッドで同様の処理を行う．
+
+touchメソッドでは，接触したかの判定をしたい要素をtouchメソッドに与えることで，その結果を真偽値で返す．プログラム\ref{code32}にtouchメソッドのプログラム例を示す．
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=15mm]{images/touch.pdf}
+  \caption{「〜に触れた」ブロック}
+  \label{fig:touch}
+\end{figure}
+
+\begin{lstlisting}[caption=touchメソッドのプログラム例, label=code32]
+Splite.new name:"ねこ" -> cat;
+Splite.new name:"いぬ" -> dog;
+Know.new -> kn;
+{ cat,dog } |> kn.touch;
+\end{lstlisting}
+
+\subsubsection{lengthメソッド}
+図\ref{fig:length}で示されたScratchにおける「〜までの距離」ブロックは，スプライトとある要素との距離を返す．本言語では，lengthメソッドで同様の処理を行う．
+
+lengthメソッドでは，距離を測りたい二つの要素をlengthメソッドに与えることで，その結果を数値で返す．プログラム\ref{code33}にlengthメソッドのプログラム例を示す．
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=15mm]{images/mouse.pdf}
+  \caption{「〜までの距離」ブロック}
+  \label{fig:length}
+\end{figure}
+
+\begin{lstlisting}[caption=lengthメソッドのプログラム例, label=code33]
+Splite.new name:"ねこ" -> cat;
+Splite.new name:"いぬ" -> dog;
+Know.new -> kn;
+{ cat,dog } |> kn.length;
+\end{lstlisting}
+
+\subsubsection{mouse\_xメソッドとmouse\_yメソッド}
+図\ref{fig:length}で示されたScratchにおける「マウスの座標」ブロックは，マウスのカーソルの座標の値を持っている．本言語では，mouse\_xメソッドとmouse\_yメソッドで同様の処理を行う．
+
+mouse\_xメソッドは，マウスのx座標の値を呼び出す．mouse\_yメソッドは，マウスのy座標の値を呼び出す．プログラム\ref{code34}にmouse\_xメソッドとmouse\_yメソッドのプログラム例を示す．
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=15mm]{images/mouse_x.pdf} 
+  \includegraphics[height=15mm]{images/mouse_y.pdf} 
+  \caption{「マウスの座標」ブロック}
+  \label{fig:length}
+\end{figure}
+
+\begin{lstlisting}[caption=mouse\_xメソッドとmouse\_yメソッドのプログラム例, label=code34]
+kn.mouse_x -> num_x;
+kn.mouse_y -> num_y;
+\end{lstlisting}
 
 \subsection{演算}
+Scratchにおける「調べる」に関連するブロックと本言語における類似処理との比較を以下に示す．
+\subsubsection{算術演算}
+図\ref{fig:math}で示されたScratchにおける「算術演算」ブロックは，算術演算を行う．本言語では，表\ref{tab:table01}に示された算術演算子を用いる．
 
-\section{構文規則}
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=15mm]{images/add.pdf}
+  \includegraphics[height=15mm]{images/sub.pdf} \\
+  \includegraphics[height=15mm]{images/mul.pdf}
+  \includegraphics[height=15mm]{images/div.pdf} \\
+  \includegraphics[height=15mm]{images/rem.pdf}
+  \caption{「算術演算」ブロック}
+  \label{fig:math}
+\end{figure}
+
+\subsubsection{比較演算}
+図\ref{fig:com}で示されたScratchにおける「比較演算」ブロックは，比較演算を行う．
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=15mm]{images/over.pdf}
+  \includegraphics[height=15mm]{images/less.pdf}
+  \includegraphics[height=15mm]{images/equ.pdf}
+  \caption{「比較演算」ブロック}
+  \label{fig:com}
+\end{figure}
+
+\subsubsection{論理演算}
+\subsubsection{乱数}
 
 \section{結言}
 
