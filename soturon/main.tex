@@ -6,6 +6,15 @@
 \usepackage{float}
 \usepackage{listings}
 
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+\renewcommand{\lstlistingname}{プログラム}
+
+% the header name for the list of it.
+\renewcommand{\listfigurename}{図目次}
+\renewcommand{\listtablename}{表目次}
+\renewcommand{\lstlistlistingname}{プログラム目次}
+
 \begin{document}
 \lstset{
   numbers = left,
@@ -50,6 +59,9 @@
 \setcounter{page}{0} %ページ番号を０から始める
 \tableofcontents %目次の作成
 \thispagestyle{empty} %ページスタイルの変更
+\listoffigures
+\listoftables
+\lstlistoflistings
 \clearpage %改ページ
 
 \section{緒言}
@@ -753,7 +765,8 @@ Scratchにおける「調べる」に関連するブロックと本言語にお�
 \end{figure}
 
 \subsubsection{比較演算}
-図\ref{fig:com}で示されたScratchにおける「比較演算」ブロックは，比較演算を行う．
+図\ref{fig:com}で示されたScratchにおける「比較演算」ブロックは，比較演算を行う．本言語では，表\ref{tab:table02}に示された比較演算子を用いる．
+
 \begin{figure}[H]
   \centering
   \includegraphics[height=15mm]{images/over.pdf}
@@ -764,10 +777,49 @@ Scratchにおける「調べる」に関連するブロックと本言語にお�
 \end{figure}
 
 \subsubsection{論理演算}
+図\ref{fig:log}で示されたScratchにおける「論理演算」ブロックは，論理演算を行う．本言語では，表\ref{tab:table03}に示された論理演算子を用いる．
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=15mm]{images/and.pdf}
+  \includegraphics[height=15mm]{images/or.pdf}
+  \caption{「比較演算」ブロック}
+  \label{fig:log}
+\end{figure}
+
 \subsubsection{乱数}
+図\ref{fig:log}で示されたScratchにおける「〜から〜までの乱数」ブロックは，指定された範囲内の乱数を生成する．本言語では，Randomクラスによって同様の処理を行う．
+
+「Random.new from:開始値, to:終端値」で，開始値から終端値までの乱数を生成する．プログラム\ref{code35}に乱数のプログラム例を示す．
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=15mm]{images/random.pdf}
+  \caption{「〜から〜までの乱数」ブロック}
+  \label{fig:log}
+\end{figure}
+
+\begin{lstlisting}[caption=乱数のプログラム例, label=code35]
+Random.new from:1, to:10 -> rand;
+rand
+\end{lstlisting}
+\clearpage
 
 \section{結言}
+%背景
+近年の急速な情報化に伴い，2020年度から小学校ではプログラミング教育の必修化が行われた．これにより小学生でも扱いやすいビジュアルプログラミング言語が注目されている．
+代表的なビジュアルプログラミング言語に「Scratch」がある．「Scratch」は指示の書かれたブロックを並べることで視覚的にわかりやすく，直感的な操作でプログラミングができる．また，文字のタイピング量が少ない点や英単語の知識を必要としない点などから，初学者のプログラミング学習に適している．
 
+%問題点
+本格的なプログラムを作成していくうえで，テキストプログラミング言語の学習が必要になる．しかし，Scratchに慣れていると，テキストプログラミング言語の学習を始めようとしたときに仕様の違いが挫折の要因になり得ると考えた．例えば，スプライトの有無やソースコードの記述方法などが挙げられる．
+
+%先行研究
+当研究室ではこれまで，上記の問題点を考慮したテキストプログラミング言語に関する先行研究が行われてきた．内堀は，ビジュアルプログラミングとテキストプログラミングについての調査を行い，初学者向けのテキストプログラミング言語の基礎を示した\cite{senkou1}．また，菅原は，開発するプログラミング言語の言語仕様を定め，インタープリタの開発を行った\cite{senkou2}．
+
+しかし，先行研究の問題点として，開発するプログラミング言語の言語仕様はまとまりきっておらず，インタープリタのパーサーが正しく動作しないなどがある．
+
+%目的
+そこで本研究では，先行研究で開発されたプログラミング言語「Chiba-lang」の言語仕様をまとめることを目的とする．
 \clearpage
 
 \section{謝辞}
