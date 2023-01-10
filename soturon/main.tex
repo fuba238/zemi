@@ -17,6 +17,7 @@
 
 \begin{document}
 \lstset{
+  basicstyle = \ttfamily,
   numbers = left,
   frame = single
 }
@@ -56,14 +57,17 @@
 
 %目次
 \setcounter{tocdepth}{3} %目次の深さ設定
-\setcounter{page}{0} %ページ番号を０から始める
+\thispagestyle{empty} %ページスタイルの変更
 \tableofcontents %目次の作成
 \thispagestyle{empty} %ページスタイルの変更
 \listoffigures
+\thispagestyle{empty} %ページスタイルの変更
 \listoftables
+\thispagestyle{empty} %ページスタイルの変更
 \lstlistoflistings
 \clearpage %改ページ
 
+\setcounter{page}{1} %ページ番号を０から始める
 \section{緒言}
 %背景
 近年の急速な情報化に伴い，2020年度から小学校ではプログラミング教育の必修化が行われた．これにより小学生でも扱いやすいビジュアルプログラミング言語が注目されている．
@@ -148,7 +152,7 @@ JavaScriptとは，Webサイトやシステム開発などで用いられるテ�
 本言語では，イベント処理の実現のためにpromiseとthenの仕組みを参考にしている．
 
 \subsubsection{Ruby}
-Rubyとは，日本で開発されたオブジェクト指向スクリプト言語である．
+\subsubsection{Smalltalk}
 \clearpage
 
 \section{言語仕様}
@@ -159,7 +163,7 @@ Rubyとは，日本で開発されたオブジェクト指向スクリプト言�
 本言語におけるデータ型の種類について示す．
 \subsubsection{数値型}
 数値型は，「5」や「1.5」などの数値で表される．
-数値型には二種類あり，整数型と浮動小数点数型の二種類がある．また，数値に対して「-」を先頭につけることで数値の正負を表すことができる．プログラム\ref{code01}に数値型のプログラム例を示す．
+数値型には二種類あり，整数型と浮動小数点数型の二種類がある．また，数値に対して「-」を先頭につけることで負の数を表すことができる．プログラム\ref{code01}に数値型のプログラム例を示す．
 
 \begin{lstlisting}[caption=数値型のプログラム例, label=code01]
 5 -> int;
@@ -305,7 +309,7 @@ true or false;
 \begin{lstlisting}[caption=変数のプログラム例, label=code11]
 100 -> num;
 () => {} -> func;
-{10,20} |> func -> ans; 
+{10, 20} |> func -> ans; 
 \end{lstlisting}
 
 \subsection{関数}
@@ -313,13 +317,14 @@ true or false;
 
 \begin{lstlisting}[caption=関数のプログラム例, label=code12]
 (a,b) => { return a + b } -> add;
-{ 10, 20 } |> add;
+{10, 20} |> add;
 \end{lstlisting}
 
-\subsection{クラスとメソッド}
-クラスとは，オブジェクトの設計図に相当するものである．本言語では，SpliteクラスやStageクラス，Eventクラスなどが存在する．クラスは大文字から始まる．
+\subsection{クラス}
+クラスとは，オブジェクトの設計図に相当するものである．SpliteクラスやStageクラスなどが存在する．クラスは大文字から始まる．
 
-メソッドとは，あるオブジェクトに対する手続きのことを指す．メソッドを使用することで，スプライトの動作，見た目の変更などの処理を行う．プログラム\ref{code13}にクラスとメソッドのプログラム例を示す．例では，Spliteクラスにあるnewメソッドにより，cat内に「ねこ」という名前のスプライトを生成している．また，walkメソッドを使用し，生成したスプライトを10歩進ませる処理を行なっている．
+\subsection{メソッド}
+メソッドとは，あるオブジェクトに対する手続きのことを指す．「オブジェクト名.メソッド パラメータ」で表される．メソッドを使用することで，スプライトの動作，見た目の変更などの処理を行う．プログラム\ref{code13}にクラスとメソッドのプログラム例を示す．例では，Spliteクラスにあるnewメソッドにより，cat内に「ねこ」という名前のスプライトを生成している．また，walkメソッドを使用し，生成したスプライトを10歩進ませる処理を行なっている．
 
 \begin{lstlisting}[caption=クラスとメソッドのプログラム例, label=code13]
 Splite.new name:"ねこ"-> cat;
@@ -331,7 +336,7 @@ cat.walk 10;
 \clearpage
 
 \section{Scratchとの比較}
-Scratchのブロックは指示の種類に分類されており，「動き」，「見た目」，「音」，「イベント」，「制御」，「調べる」，「演算」等の種類がある．全ての機能を本言語内で取り扱うわけではないが，Scratchのようにステージとスプライトを利用したプログラミングで「音」は重要度が低い要素と判断したため，現時点では実装について考えていない．以下に，種類ごとにScratchのブロックと本言語の記述の比較したものを示す．
+Scratchのブロックは指示の種類に分類されており，「動き」，「見た目」，「音」，「イベント」，「制御」，「調べる」，「演算」等の種類がある．現時点では，全ての機能を本言語内で取り扱うことは想定しておらず，必要最低限の機能の実装を想定している．種類ごとにScratchのブロックと本言語の記述の比較したものを示す．
 
 \subsection{動き}
 Scratchにおける「動き」に関連するブロックと本言語における類似した処理との比較を以下に示す．
@@ -348,7 +353,7 @@ walkメソッドは，「スプライト名.walk」で向いている方向へ�
 \end{figure}
 
 \begin{lstlisting}[caption=walkメソッドのプログラム例, label=code14]
-Splite.new name:"ねこ"-> cat;
+Splite.new name:"ねこ" -> cat;
 cat.walk 50; 
 \end{lstlisting}
 
@@ -369,7 +374,7 @@ moveメソッドは，「スプライト名.move」でx座標の値，y座標の
 \end{figure}
 
 \begin{lstlisting}[caption=moveメソッドのプログラム例, label=code15]
-Splite.new name:"ねこ"-> cat;
+Splite.new name:"ねこ" -> cat;
 cat.move x:10, y:10, time:2; 
 \end{lstlisting}
 
@@ -380,14 +385,14 @@ move\_stepメソッドは，「スプライト名.move\_step」でx座標の変�
 
 \begin{figure}[H]
   \centering
-  \includegraphics[height=15mm]{images/step_x.pdf} \\
+  \includegraphics[height=15mm]{images/step_x.pdf} 
   \includegraphics[height=15mm]{images/step_y.pdf} 
   \caption{「座標を〜ずつ変える」ブロック}
   \label{fig:step}
 \end{figure}
 
 \begin{lstlisting}[caption=move\_stepメソッドのプログラム例, label=code16]
-Splite.new name:"ねこ"-> cat;
+Splite.new name:"ねこ" -> cat;
 cat.move_step x:10; 
 cat.move_step y:-10; 
 \end{lstlisting}
@@ -427,10 +432,9 @@ touchメソッドとは，二つのオブジェクト同士が接触している
 \begin{lstlisting}[caption=returnメソッドのプログラム例, label=code18]
 Stage.new name:"いえ" -> stage;
 Splite.new name:"ねこ" -> cat;
-Know.new -> kn;
-{ kn.touch stage.around,cat }.if {
+{ cat.touch stage.around }.if {
   cat.return;
-}
+};
 \end{lstlisting}
 
 \subsubsection{xメソッドとyメソッド}
@@ -470,7 +474,7 @@ sayメソッドは，「スプライト名.say」で文字列のデータを与�
 \end{figure}
 
 \begin{lstlisting}[caption=sayメソッドのプログラム例, label=code20]
-Splite.new name:"ねこ"-> cat;
+Splite.new name:"ねこ" -> cat;
 cat.say "こんにちは!";
 { 3.second }.wait;
 cat.say "";
@@ -492,7 +496,7 @@ cat.say "";
 \end{figure}
 
 \begin{lstlisting}[caption=costumeメソッドとnext\_costumeメソッドのプログラム例, label=code21]
-Splite.new name:"ねこ"-> cat;
+Splite.new name:"ねこ" -> cat;
 cat.costume "コスチューム1";
 cat.next_costume;
 \end{lstlisting}
@@ -513,7 +517,7 @@ cat.next_costume;
 \end{figure}
 
 \begin{lstlisting}[caption=backgroundメソッドとnext\_backgroundメソッドのプログラム例, label=code22]
-Stage.new name:"ステージ"-> stage;
+Stage.new name:"ステージ" -> stage;
 stage.background "ゆき";
 stage.next_background;
 \end{lstlisting}
@@ -573,29 +577,40 @@ cat.show false;
 
 \subsection{イベント}
 Scratchにおける「イベント」に関連するブロックと本言語における類似処理との比較を以下に示す．
-図\ref{fig:then}で示されたScratchにおける「〜されたとき」ブロックは，イベント処理を表す．本言語では，Eventクラスとthenメソッドを使用することで処理を再現している．JavaScriptにおけるPromiseを利用した非同期処理の仕組みを参考にしている．
+図\ref{fig:then}で示されたScratchにおける「〜されたとき」ブロックは，イベント処理を表す．本言語では，KeyEventクラスやClickEventクラスやMessageEventクラスとifメソッドを使用することで処理を再現している．JavaScriptにおけるPromiseを利用した非同期処理の仕組みを参考にしている．
 
-プログラム\ref{code26}にthenメソッドのプログラム例を示す．「Event.new」でEventクラスのインスタンス「ev」を作成している．Eventクラスのインスタンスは，あらゆるイベントのキーワードを受け取る．プログラム\ref{code26}では，旗が押されたときに発行される「flag」を受け取っており，thenメソッドでflagを受け取ったときの処理を記述している．
+プログラム\ref{code26}にイベント処理のプログラム例を示す．「ClickEvent.new」でクラスのインスタンス「ev」を作成している．ClickEventクラスのインスタンスは，クリックしたオブジェクトのキーワードを受け取る．プログラム\ref{code26}では，旗が押されたときに発行される「flag」を受け取っており，ifメソッドでflagを受け取ったときの処理を記述している．
 
-Eventクラスのインスタンスは，キーが押されたときにキーの名前を，スプライトがクリックされたときにスプライトの名前をキーワードとして受け取る．また，メッセージを送る場合は，パイプライン演算子でevにメッセージを送る．
+KeyEventクラスのインスタンスは，キーが押されたときにキーの名前を，ClickEventクラスのインスタンスは，スプライトがクリックされたときにスプライトの名前をキーワードとして受け取る．
+
+また，図\ref{fig:send}で示されたScratchにおける「〜を送る」「〜を送って待つ」ブロックは，Scratchプロジェクト全体にメッセージを送る．本言語では，メッセージを送る場合は，MessageEventクラスのインスタンスにパイプライン演算子でメッセージを送る．
 
 \begin{figure}[H]
   \centering
-  \includegraphics[height=15mm]{images/flag.pdf} \\
+  \includegraphics[height=15mm]{images/flag.pdf} 
   \includegraphics[height=15mm]{images/keypress.pdf} \\
-  \includegraphics[height=15mm]{images/click.pdf} \\
+  \includegraphics[height=15mm]{images/click.pdf} 
   \includegraphics[height=15mm]{images/message.pdf}
   \caption{「〜されたとき」ブロック}
   \label{fig:then}
 \end{figure}
 
-\begin{lstlisting}[caption=thenメソッドのプログラム例, label=code26]
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=15mm]{images/send.pdf} 
+  \includegraphics[height=15mm]{images/send2.pdf} 
+  \caption{「〜送る」「〜を送って待つ」ブロック}
+  \label{fig:send}
+\end{figure}
+
+\begin{lstlisting}[caption=イベント処理のプログラム例, label=code26]
 Splite.new name:"ねこ" -> cat;
-Event.new -> ev;
-{ ev = "flag" }.then {
+ClickEvent.new -> click;
+MessageEvent.new -> mes;
+{ click = "flag" }.if {
   cat.say "こんにちは!";
-  "終了" |> ev;
-}
+  終了 |> mes;
+};
 \end{lstlisting}
 
 \subsection{制御}
@@ -614,7 +629,7 @@ waitメソッドは，「スプライト名.wait」で指定した時間分の�
 \end{figure}
 
 \begin{lstlisting}[caption=waitメソッドのプログラム例, label=code27]
-Splite.new name:"ねこ" -> cat
+Splite.new name:"ねこ" -> cat;
 cat.wait 60;
 \end{lstlisting}
 
@@ -634,7 +649,7 @@ eachメソッドは，「範囲型.each 処理」のように，範囲型で示�
 0 -> sum;
 { 1~10 }.each (i) => {
   sum + i -> sum;
-}
+};
 \end{lstlisting}
 \subsubsection{whileメソッド}
 図\ref{fig:while}で示されたScratchにおける「〜まで繰り返す」ブロックは，指定した条件が真になるまで繰り返し処理を行う．本言語では，whileメソッドで類似した処理を行う．
@@ -652,7 +667,7 @@ whileメソッドは，「条件式.while 処理」のように，条件式の�
 10 -> num;
 { num > 0 }.while {
   num - 1 -> num;
-}
+};
 \end{lstlisting}
 
 また，図\ref{fig:while}で示されたScratchにおける「ずっと繰り返す」ブロックは，無限ループを行う．whileメソッドは，「true.while」とすることで，永続的な繰り返し処理を行う．「break」で無限ループから抜け出すことができる．プログラム\ref{code30}に無限ループのプログラム例を示す．
@@ -670,8 +685,8 @@ true.while {
   sum + 1 -> sum;
   { sum > 10 }.if {
     break;
-  }
-}
+  };
+};
 \end{lstlisting}
 \subsubsection{ifメソッド}
 図\ref{fig:if}で示されたScratchにおける「もし〜ならば」ブロックは，指定した条件が真である場合のみ処理を行う．本言語では，ifメソッドで類似した処理を行う．
@@ -690,7 +705,7 @@ ifメソッドは，「条件式.if 処理」のように，条件式の結果�
 3 -> num;
 {num = 3}.if { 
   0 -> num;
-}
+};
 \end{lstlisting}
 
 \subsection{調べる}
@@ -709,14 +724,13 @@ touchメソッドでは，接触したかの判定をしたい要素をtouchメ�
 \begin{lstlisting}[caption=touchメソッドのプログラム例, label=code32]
 Splite.new name:"ねこ" -> cat;
 Splite.new name:"いぬ" -> dog;
-Know.new -> kn;
-{ cat,dog } |> kn.touch;
+cat.touch dog;
 \end{lstlisting}
 
-\subsubsection{lengthメソッド}
-図\ref{fig:length}で示されたScratchにおける「〜までの距離」ブロックは，スプライトとある要素との距離を返す．本言語では，lengthメソッドで同様の処理を行う．
+\subsubsection{length\_betweenメソッド}
+図\ref{fig:length}で示されたScratchにおける「〜までの距離」ブロックは，スプライトとある要素との距離を返す．本言語では，length\_betweenメソッドで同様の処理を行う．
 
-lengthメソッドでは，距離を測りたい二つの要素をlengthメソッドに与えることで，その結果を数値で返す．プログラム\ref{code33}にlengthメソッドのプログラム例を示す．
+length\_betweenメソッドでは，二つのスプライト間の距離を数値で返す．プログラム\ref{code33}にlength\_betweenメソッドのプログラム例を示す．
 
 \begin{figure}[H]
   \centering
@@ -725,11 +739,10 @@ lengthメソッドでは，距離を測りたい二つの要素をlengthメソ�
   \label{fig:length}
 \end{figure}
 
-\begin{lstlisting}[caption=lengthメソッドのプログラム例, label=code33]
+\begin{lstlisting}[caption=length\_betweenメソッドのプログラム例, label=code33]
 Splite.new name:"ねこ" -> cat;
 Splite.new name:"いぬ" -> dog;
-Know.new -> kn;
-{ cat,dog } |> kn.length;
+cat.length_between dog;
 \end{lstlisting}
 
 \subsubsection{mouse\_xメソッドとmouse\_yメソッド}
@@ -803,7 +816,7 @@ Scratchにおける「調べる」に関連するブロックと本言語にお�
 
 \begin{lstlisting}[caption=乱数のプログラム例, label=code35]
 Random.new from:1, to:10 -> rand;
-rand
+rand -> num;
 \end{lstlisting}
 \clearpage
 
@@ -821,7 +834,7 @@ rand
 しかし，先行研究の問題点として，開発するプログラミング言語の言語仕様はまとまりきっておらず，インタープリタのパーサーが正しく動作しないなどがある．
 
 %目的
-そこで本研究では，Scratchからの移行時の懸念点を考慮したテキストプログラミング言語のコンセプトを設定し，言語仕様をまとめた．
+そこで本研究では，Scratchを学んだ学習者が，次の段階として抵抗感を減らすことを目的としたテキストプログラミング言語「Chiba-lang」のコンセプトを定め，サンプルプログラムと言語仕様書の作成を行った．
 
 %今後
 今後は，本研究でまとめられた言語仕様より，インタープリタや実行環境の開発を進めていく．
